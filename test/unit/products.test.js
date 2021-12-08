@@ -20,7 +20,7 @@ let req,res, next;
 beforeEach(() =>{
     req= httpMocks.createRequest();
     res = httpMocks.createResponse();
-    next = null;
+    next = jest.fn();
 })
 describe("Product Controller Create", ()=>{
     //4-1. 생성 시 데이터 가져오기 before (3-1번 가져오기)
@@ -65,6 +65,18 @@ describe("Product Controller Create", ()=>{
         expect(res._getJSONData()).toStrictEqual(newProduct);
         //6-1. controller에 createdProduct 정의
     })
-
     //7. async await 넣어주기 (await은 controller 호출한 부분에)
+
+    //8. mock 함수로 에러메세지 생성 (필수파라미터를 생략했을 때)
+    it("should handle errors", async()=>{
+        const errorMessage = { message: "description property missing" };
+        const rejectedPromise = Promise.reject(errorMessage);
+        productModel.create.mockReturnValue(rejectedPromise); //만든 에러메세지 리턴
+
+        //8-1. 컨트롤러 호출 / next에 mock함수 넣어주기
+        await productController.createProduct(req,res,next);
+        expect(next).toBeCalledWith(errorMessage);
+
+        //8-2. 컨트롤러에 실패 시 코드 작성해주기
+    })
 })
