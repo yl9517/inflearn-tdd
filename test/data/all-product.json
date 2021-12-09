@@ -1,0 +1,15 @@
+[
+    {
+    "name":"summer",
+    "description": "good to wear",
+    "price": 6000
+},{
+    "name":"glory",
+    "description": "I like apple",
+    "price": 8000
+},{
+    "name":"pen",
+    "description": "wirte a book",
+    "price": 1000
+}
+]

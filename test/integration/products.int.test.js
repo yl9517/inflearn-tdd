@@ -17,7 +17,7 @@ it("POST /api/products", async() => {
 it("should return 500 on POST /api/products", async() =>{
     const response = await request(app).post("/api/products").send({ name: "phone" }); //이름데이터만 보내기 (에러 발생)
     
-    console.log('resbody',response.body);
+  //  console.log('resbody',response.body);
     expect(response.statusCode).toBe(500);
     expect(response.body).toStrictEqual({ message : "Product validation failed: description: Path `description` is required." })
 })
